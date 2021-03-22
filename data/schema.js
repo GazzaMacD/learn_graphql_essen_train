@@ -34,7 +34,8 @@ const typeDefs = `
     }
 
     type Query {
-        getFriend(id: ID): Friend
+        getOneFriend(id: ID): Friend
+        getAllFriends: [Friend]
     }
 
     input FriendInput {
