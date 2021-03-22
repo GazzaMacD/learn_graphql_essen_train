@@ -1,1 +1,2 @@
 curl -X POST -H "Content-Type: application/json" --data '{ "query": "{ friend { id firstName } }" }'  http://localhost:8080/graphql
+curl -X POST -H "Content-Type: application/json" --data '{ "query": "{ getOneFriend(id: "60547f8ed0d10657b7c05874") { id firstName } }" }'  http://localhost:8080/graphql
