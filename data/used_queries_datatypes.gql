@@ -1,0 +1,62 @@
+mutation {
+    createFriend(
+        input: {
+            firstName: "Bob"
+            lastName: "Macdonald"
+            email: "bob@fakemail.com"
+            gender: MALE
+            language: "Bobish"
+            contacts: [{ firstName: "John", lastName: "Doe" }]
+        }
+    ) {
+        id
+    }
+}
+
+# Query for  to get all friends
+query {
+    getAllFriends {
+        id
+        firstName
+        lastName
+        contacts {
+            firstName
+            lastName
+        }
+    }
+}
+# Query to get friend by id
+query {
+    getOneFriend(id: "6055b2729010db6f22da4d83") {
+        firstName
+        lastName
+        language
+        email
+        gender
+        contacts {
+            firstName
+            lastName
+        }
+    }
+}
+
+# Query to get friend by id and all aliens - using aliases
+
+query {
+    friend: getOneFriend(id: "6055b2729010db6f22da4d83") {
+        firstName
+        lastName
+        language
+        email
+        gender
+        contacts {
+            firstName
+            lastName
+        }
+    }
+    aliens: getAliens {
+        firstName
+        lastName
+        planet
+    }
+}

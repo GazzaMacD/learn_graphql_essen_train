@@ -1,8 +1,18 @@
-import { Friends } from "./dbConnectors.js";
+import { Friends, Aliens } from "./dbConnectors.js";
 const resolvers = {
     Query: {
+        getAliens: async () => {
+            try {
+                // using sequelize model
+                const aliens = await Aliens.findAll();
+                return aliens;
+            } catch (err) {
+                console.error(err);
+            }
+        },
         getAllFriends: async () => {
             try {
+                // using mongoose model
                 const friends = await Friends.find({});
                 return friends;
             } catch (err) {
@@ -36,16 +46,6 @@ const resolvers = {
             } catch (err) {
                 console.error(err);
             }
-
-            //      return new Promise((resolve, reject) => {
-            //        newFriend.save((err) => {
-            //          if (err) {
-            //            reject(err);
-            //          } else {
-            //            resolve(newFriend);
-            //          }
-            //        });
-            //      });
         },
         updateFriend: async (root, { input }) => {
             const filter = { _id: input.id };
@@ -59,6 +59,16 @@ const resolvers = {
                 return result;
             } catch (error) {
                 console.error("updateFriend Error", error);
+            }
+        },
+        deleteFriend: async (root, { id }) => {
+            const filter = { _id: id };
+            try {
+                let result = await Friends.deleteOne(filter);
+                console.log(result);
+                return `Success!! Removed friend with id ${id}`;
+            } catch (error) {
+                console.error("deleteFriend Error", error);
             }
         },
     },
